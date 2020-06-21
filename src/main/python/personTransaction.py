@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import Error
 import configparser
 import os
-import concurrent.futures
+from ThreadExecutor import ThreadExecutor
 
 config = configparser.ConfigParser()
 url = 'C:\\config.txt'
@@ -13,10 +13,11 @@ userPassword = config.get('configuration','password').strip('"')
 hostURL = config.get('configuration','host').strip('"')
 dbName = config.get('configuration','database').strip('"')
 
+th = ThreadExecutor.instance()
+
 def create(id,fname,lname,gender,phno,address,adharNo,adharStatus,panCardNo):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        future = executor.submit(createTask,id,fname,lname,gender,phno,address,adharNo,adharStatus,panCardNo)
-        return future.result()
+    future = th.executor.submit(createTask,id,fname,lname,gender,phno,address,adharNo,adharStatus,panCardNo)
+    return future.result()
 
 def createTask(id,fname,lname,gender,phno,address,adharNo,adharStatus,panCardNo):
     try:
@@ -49,9 +50,8 @@ def createTask(id,fname,lname,gender,phno,address,adharNo,adharStatus,panCardNo)
 
 
 def deleteById(id):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        future = executor.submit(deleteByIdTask,id)
-        return future.result()
+    future = th.executor.submit(deleteByIdTask,id)
+    return future.result()
 
 def deleteByIdTask(id):
     try:
@@ -79,9 +79,8 @@ def deleteByIdTask(id):
             print("MySQL connection is closed")
 
 def updateFirstName(firstName, id):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        future = executor.submit(updateFirstNameTask,firstName,id)
-        return future.result()
+    future = th.executor.submit(updateFirstNameTask,firstName,id)
+    return future.result()
 
 def updateFirstNameTask(firstName, id):
     try:
@@ -109,9 +108,8 @@ def updateFirstNameTask(firstName, id):
             print("MySQL connection is closed")
 
 def updateLastName(lastName, id):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        future = executor.submit(updateLastNameTask,lastName,id)
-        return future.result()
+    future = th.executor.submit(updateLastNameTask,lastName,id)
+    return future.result()
 
 def updateLastNameTask(lastName, id):
     try:
@@ -139,9 +137,8 @@ def updateLastNameTask(lastName, id):
             print("MySQL connection is closed")
 
 def updatePhoneNumber(phoneNumber, id):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        future = executor.submit(updatePhoneNumberTask,phoneNumber,id)
-        return future.result()
+    future = th.executor.submit(updatePhoneNumberTask,phoneNumber,id)
+    return future.result()
 
 def updatePhoneNumberTask(phoneNumber, id):
     try:
@@ -169,9 +166,8 @@ def updatePhoneNumberTask(phoneNumber, id):
             print("MySQL connection is closed")
 
 def updateAddress(address, id):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        future = executor.submit(updateAddressTask,address,id)
-        return future.result()
+    future = th.executor.submitt(updateAddressTask,address,id)
+    return future.result()
 
 def updateAddressTask(address, id):
     try:
@@ -199,9 +195,8 @@ def updateAddressTask(address, id):
             print("MySQL connection is closed")
 
 def updatePanCard(panCard, id):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        future = executor.submit(updatePanCardTask,panCard,id)
-        return future.result()
+    future = th.executor.submit(updatePanCardTask,panCard,id)
+    return future.result()
 
 def updatePanCardTask(panCard, id):
     try:
@@ -229,9 +224,8 @@ def updatePanCardTask(panCard, id):
             print("MySQL connection is closed")
 
 def updateAdharCardNumber(adharCardNumber, id):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        future = executor.submit(updateAdharCardNumberTask,adharCardNumber,id)
-        return future.result()
+    future = th.executor.submit(updateAdharCardNumberTask,adharCardNumber,id)
+    return future.result()
 
 def updateAdharCardNumberTask(adharCardNumber, id):
     try:
@@ -259,9 +253,8 @@ def updateAdharCardNumberTask(adharCardNumber, id):
             print("MySQL connection is closed")
 
 def updateAdharCardStatus(status, id):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        future = executor.submit(updateAdharCardStatusTask,status,id)
-        return future.result()
+    future = th.executor.submit(updateAdharCardStatusTask,status,id)
+    return future.result()
 
 def updateAdharCardStatusTask(status, id):
     try:
@@ -289,9 +282,8 @@ def updateAdharCardStatusTask(status, id):
             print("MySQL connection is closed")
 
 def getAllPerson():
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        future = executor.submit(getAllPersonTask)
-        return future.result()
+    future = th.executor.submit(getAllPersonTask)
+    return future.result()
 
 def getAllPersonTask():
     try:
@@ -319,9 +311,8 @@ def getAllPersonTask():
             print("MySQL connection is closed")
 
 def getAllPersonById(id):
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        future = executor.submit(getPersonByIdTask,id)
-        return future.result()
+    future = th.executor.submit(getPersonByIdTask,id)
+    return future.result()
 
 def getPersonByIdTask(id):
     try:
@@ -348,3 +339,5 @@ def getPersonByIdTask(id):
             cursor.close()
             connection.close()
             print("MySQL connection is closed")
+
+print(getAllPerson())
