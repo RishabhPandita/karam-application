@@ -1,12 +1,24 @@
 import mysql.connector
 from mysql.connector import Error
+import configparser
+import os
+
+config = configparser.ConfigParser()
+url = 'C:\\config.txt'
+assert os.path.exists(url)
+config.read(url)
+userName = config.get('configuration','userName').strip('"')
+userPassword = config.get('configuration','password').strip('"')
+hostURL = config.get('configuration','host').strip('"')
+dbName = config.get('configuration','database').strip('"')
+
 
 def create(id,fname,lname,gender,phno,address,adharNo,adharStatus,panCardNo):
     try:
-        connection = mysql.connector.connect(host='',
-                                             database='',
-                                             user='',
-                                             password='')
+        connection = mysql.connector.connect(host=hostURL,
+                                             database=dbName,
+                                             user=userName,
+                                             password=userPassword)
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -30,12 +42,14 @@ def create(id,fname,lname,gender,phno,address,adharNo,adharStatus,panCardNo):
             connection.close()
             print("MySQL connection is closed")
 
+
+
 def deleteById(id):
     try:
-        connection = mysql.connector.connect(host='',
-                                             database='',
-                                             user='',
-                                             password='')
+        connection = mysql.connector.connect(host=hostURL,
+                                             database=dbName,
+                                             user=userName,
+                                             password=userPassword)
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -58,10 +72,10 @@ def deleteById(id):
 
 def updateFirstName(firstName, id):
     try:
-        connection = mysql.connector.connect(host='',
-                                             database='',
-                                             user='',
-                                             password='')
+        connection = mysql.connector.connect(host=hostURL,
+                                             database=dbName,
+                                             user=userName,
+                                             password=userPassword)
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -83,10 +97,10 @@ def updateFirstName(firstName, id):
 
 def updateLastName(lastName, id):
     try:
-        connection = mysql.connector.connect(host='',
-                                             database='',
-                                             user='',
-                                             password='')
+        connection = mysql.connector.connect(host=hostURL,
+                                             database=dbName,
+                                             user=userName,
+                                             password=userPassword)
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -108,10 +122,10 @@ def updateLastName(lastName, id):
 
 def updatePhoneNumber(phoneNumber, id):
     try:
-        connection = mysql.connector.connect(host='',
-                                             database='',
-                                             user='',
-                                             password='')
+        connection = mysql.connector.connect(host=hostURL,
+                                             database=dbName,
+                                             user=userName,
+                                             password=userPassword)
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -133,10 +147,10 @@ def updatePhoneNumber(phoneNumber, id):
 
 def updateAddress(address, id):
     try:
-        connection = mysql.connector.connect(host='',
-                                             database='',
-                                             user='',
-                                             password='')
+        connection = mysql.connector.connect(host=hostURL,
+                                             database=dbName,
+                                             user=userName,
+                                             password=userPassword)
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -158,10 +172,10 @@ def updateAddress(address, id):
 
 def updatePanCard(panCard, id):
     try:
-        connection = mysql.connector.connect(host='',
-                                             database='',
-                                             user='',
-                                             password='')
+        connection = mysql.connector.connect(host=hostURL,
+                                             database=dbName,
+                                             user=userName,
+                                             password=userPassword)
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -183,10 +197,10 @@ def updatePanCard(panCard, id):
 
 def updateAdharCardNumber(adharCardNumber, id):
     try:
-        connection = mysql.connector.connect(host='',
-                                             database='',
-                                             user='',
-                                             password='')
+        connection = mysql.connector.connect(host=hostURL,
+                                             database=dbName,
+                                             user=userName,
+                                             password=userPassword)
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -208,10 +222,10 @@ def updateAdharCardNumber(adharCardNumber, id):
 
 def updateAdharCardStatus(status, id):
     try:
-        connection = mysql.connector.connect(host='',
-                                             database='',
-                                             user='',
-                                             password='')
+        connection = mysql.connector.connect(host=hostURL,
+                                             database=dbName,
+                                             user=userName,
+                                             password=userPassword)
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -233,10 +247,10 @@ def updateAdharCardStatus(status, id):
 
 def getAllPerson():
     try:
-        connection = mysql.connector.connect(host='',
-                                             database='',
-                                             user='',
-                                             password='')
+        connection = mysql.connector.connect(host=hostURL,
+                                             database=dbName,
+                                             user=userName,
+                                             password=userPassword)
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -258,10 +272,10 @@ def getAllPerson():
 
 def getPersonById(id):
     try:
-        connection = mysql.connector.connect(host='',
-                                             database='',
-                                             user='',
-                                             password='')
+        connection = mysql.connector.connect(host=hostURL,
+                                             database=dbName,
+                                             user=userName,
+                                             password=userPassword)
         if connection.is_connected():
             db_Info = connection.get_server_info()
             print("Connected to MySQL Server version ", db_Info)
@@ -281,3 +295,5 @@ def getPersonById(id):
             cursor.close()
             connection.close()
             print("MySQL connection is closed")
+
+print(getAllPerson())
